@@ -59,4 +59,80 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         get_string('enableonlogin_desc', 'local_confetti'),
         0 // Default value (0 = unchecked, 1 = checked).
     ));
+    
+    // Add confetti appearance section header
+    $settings->add(new admin_setting_heading(
+        'local_confetti/confettiappearance',
+        get_string('confettiappearance', 'local_confetti'),
+        get_string('confettiappearance_desc', 'local_confetti')
+    ));
+    
+    // Confetti preset selection
+    $confettipresets = [
+        'basic' => get_string('confettipresetbasic', 'local_confetti'),
+        'realistic' => get_string('confettipresetrealistic', 'local_confetti'),
+        'fireworks' => get_string('confettipresetfireworks', 'local_confetti'),
+        'snow' => get_string('confettipresetsnow', 'local_confetti'),
+        'school' => get_string('confettipresetschool', 'local_confetti')
+    ];
+    $settings->add(new admin_setting_configselect(
+        'local_confetti/confettipreset',
+        get_string('confettipreset', 'local_confetti'),
+        get_string('confettipreset_desc', 'local_confetti'),
+        'basic', // Default value
+        $confettipresets
+    ));
+    
+    // Add preview button
+    $previewhtml = html_writer::start_div('form-item row');
+    $previewhtml .= html_writer::start_div('form-label col-sm-3');
+    $previewhtml .= html_writer::tag('label', get_string('previewconfetti', 'local_confetti'));
+    $previewhtml .= html_writer::end_div();
+    $previewhtml .= html_writer::start_div('form-setting col-sm-9');
+    $previewhtml .= html_writer::tag('p', get_string('previewconfetti_desc', 'local_confetti'));
+    $previewhtml .= html_writer::tag('button', get_string('previewbutton', 'local_confetti'), 
+        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary', 'type' => 'button']);
+    $previewhtml .= html_writer::end_div();
+    $previewhtml .= html_writer::end_div();
+    
+    $settings->add(new admin_setting_heading(
+        'local_confetti/previewheading',
+        '',
+        $previewhtml
+    ));
+    
+    // Load the preview JS
+    $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
+    
+    // Add placeholder settings for future functionality
+    $settings->add(new admin_setting_heading(
+        'local_confetti/placeholdersheader',
+        get_string('placeholdersheader', 'local_confetti'),
+        get_string('placeholdersdescription', 'local_confetti')
+    ));
+    
+    // Placeholder checkbox 1
+    $settings->add(new admin_setting_configcheckbox(
+        'local_confetti/placeholder1',
+        get_string('placeholder1', 'local_confetti'),
+        get_string('placeholder1_desc', 'local_confetti'),
+        0 // Default value (0 = unchecked, 1 = checked)
+    ));
+    
+    // Placeholder checkbox 2
+    $settings->add(new admin_setting_configcheckbox(
+        'local_confetti/placeholder2',
+        get_string('placeholder2', 'local_confetti'),
+        get_string('placeholder2_desc', 'local_confetti'),
+        0 // Default value (0 = unchecked, 1 = checked)
+    ));
+    
+    // Placeholder checkbox 3
+    $settings->add(new admin_setting_configcheckbox(
+        'local_confetti/placeholder3',
+        get_string('placeholder3', 'local_confetti'),
+        get_string('placeholder3_desc', 'local_confetti'),
+        0 // Default value (0 = unchecked, 1 = checked)
+    ));
 }
+

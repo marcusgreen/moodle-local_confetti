@@ -38,6 +38,32 @@ $string['enableoncoursecompletion_desc'] = 'When enabled, confetti will be shown
 $string['enableonlogin'] = 'Enable on successful login';
 $string['enableonlogin_desc'] = 'When enabled, confetti will be shown when a user successfully logs in to Moodle. (Implementation pending)';
 
+// Confetti appearance settings
+$string['confettiappearance'] = 'Confetti Appearance';
+$string['confettiappearance_desc'] = 'Configure how the confetti effect looks.';
+$string['confettipreset'] = 'Confetti preset';
+$string['confettipreset_desc'] = 'Choose a preset animation style for the confetti effect.';
+$string['confettipresetbasic'] = 'Basic (default)';
+$string['confettipresetrealistic'] = 'Realistic';
+$string['confettipresetfireworks'] = 'Fireworks';
+$string['confettipresetsnow'] = 'Snow';
+$string['confettipresetschool'] = 'School Pride';
+
+// Placeholder settings
+$string['placeholdersheader'] = 'Additional options (coming soon)';
+$string['placeholdersdescription'] = 'These settings will be implemented in future versions.';
+$string['placeholder1'] = 'Preset 1';
+$string['placeholder1_desc'] = 'Additional preset functionality (coming soon).';
+$string['placeholder2'] = 'Preset 2';
+$string['placeholder2_desc'] = 'Additional preset functionality (coming soon).';
+$string['placeholder3'] = 'Preset 3';
+$string['placeholder3_desc'] = 'Additional preset functionality (coming soon).';
+
+// Preview button
+$string['previewconfetti'] = 'Preview Confetti';
+$string['previewconfetti_desc'] = 'Click the button to preview the confetti effect with current settings.';
+$string['previewbutton'] = 'Show Preview';
+
 // Capabilities
 $string['confetti:manage'] = 'Manage Confetti settings';
 $string['manageconfettisettings'] = 'Manage Confetti Settings';
