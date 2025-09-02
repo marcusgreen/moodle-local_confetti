@@ -1,0 +1,6 @@
+{
+    "name": "moodle-local_confetti",
+    "dependencies": {
+        "canvas-confetti": "^1.9.3"
+    }
+}
