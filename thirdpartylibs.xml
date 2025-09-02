@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>amd/src/confetti/*</location>
+    <name>Confetti</name>
+    <description>Confetti plugin</description>
+    <version>1.0</version>
+    <license>GPL</license>
+    <licenseversion>3.0+</licenseversion>
+    <repository>https://github.com/catdad/canvas-confetti</repository>
+    <copyrights>
+      <copyright>Kiril Vatev</copyright>
+    </copyrights>
+    <upgradable>false</upgradable>
+  </library>
+</libraries>
