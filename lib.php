@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for Confetti
+ * Library functions for confetti
  *
  * @package    local_confetti
  * @copyright  2025 Odei Alba <odeialba@odeialba.com>
@@ -24,9 +24,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component    = 'local_confetti';
-$plugin->release      = '1.0';
-$plugin->version      = 2025090212;
-$plugin->requires     = 2024100702.00;
-$plugin->supported    = [405, 405];
-$plugin->maturity     = MATURITY_STABLE;
+// This file is a placeholder for future implementation
+// The confetti display functionality will be implemented separately

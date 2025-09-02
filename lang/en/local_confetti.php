@@ -27,3 +27,17 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Confetti';
 $string['privacy:metadata'] = 'The Confetti plugin doesn\'t store any personal data.';
+
+// Settings page
+$string['settingsheader'] = 'Confetti Settings';
+$string['settingsdescription'] = 'Configure the behavior of the Confetti plugin.';
+$string['enableonfrontpage'] = 'Enable on frontpage';
+$string['enableonfrontpage_desc'] = 'When enabled, confetti will be shown on the frontpage.';
+$string['enableoncoursecompletion'] = 'Enable on course completion';
+$string['enableoncoursecompletion_desc'] = 'When enabled, confetti will be shown when a user completes a course.';
+$string['enableonlogin'] = 'Enable on successful login';
+$string['enableonlogin_desc'] = 'When enabled, confetti will be shown when a user successfully logs in to Moodle. (Implementation pending)';
+
+// Capabilities
+$string['confetti:manage'] = 'Manage Confetti settings';
+$string['manageconfettisettings'] = 'Manage Confetti Settings';

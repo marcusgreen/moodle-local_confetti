@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for Confetti
+ * Capability definitions for the confetti plugin
  *
  * @package    local_confetti
  * @copyright  2025 Odei Alba <odeialba@odeialba.com>
@@ -24,9 +24,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component    = 'local_confetti';
-$plugin->release      = '1.0';
-$plugin->version      = 2025090212;
-$plugin->requires     = 2024100702.00;
-$plugin->supported    = [405, 405];
-$plugin->maturity     = MATURITY_STABLE;
+$capabilities = [
+    'local/confetti:manage' => [
+        'riskbitmask' => RISK_CONFIG,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'manager' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+        ],
+    ],
+];

@@ -15,18 +15,37 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for Confetti
+ * Event observer for confetti plugin.
  *
  * @package    local_confetti
  * @copyright  2025 Odei Alba <odeialba@odeialba.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace local_confetti\event;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component    = 'local_confetti';
-$plugin->release      = '1.0';
-$plugin->version      = 2025090212;
-$plugin->requires     = 2024100702.00;
-$plugin->supported    = [405, 405];
-$plugin->maturity     = MATURITY_STABLE;
+/**
+ * Event observer class for confetti plugin.
+ *
+ * @package    local_confetti
+ * @copyright  2025 Odei Alba <odeialba@odeialba.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class observer {
+    /**
+     * Observer for user logged in event.
+     *
+     * @param \core\event\user_loggedin $event The event.
+     */
+    public static function user_loggedin(\core\event\user_loggedin $event) {
+        // We keep the observer function as a placeholder for future implementation
+        // The confetti display functionality will be implemented separately
+        // Check if the setting is enabled.
+        if (get_config('local_confetti', 'enableonlogin')) {
+            // The actual confetti effect will be implemented separately
+            // No action for now
+        }
+    }
+}
