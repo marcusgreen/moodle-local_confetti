@@ -15,23 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event observers used in local_confetti.
+ * Hook callbacks for Confetti
  *
  * @package    local_confetti
- * @copyright  2025 Odei Alba <odeialba@odeialba.com>
+ * @copyright  2025 YOUR NAME <your@email.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$observers = [
+$callbacks = [
+    //     [
+    //     'hook' => core_user\hook\after_login_completed::class,
+    //     'callback' => [\local_confetti\hook\hook_callbacks::class, 'login_callback'],
+    //     'priority' => 500,
+    // ],
     [
-        'eventname' => core\event\user_loggedin::class,
-        'callback' => '\local_confetti\event\observer::user_loggedin',
-        'internal' => false,
-    ],
-    [
-        'eventname'   => core\event\user_loggedin::class,
-        'callback'    => 'local_confetti_observer::confetti_callback',
+        'hook' => core\hook\output\before_http_headers::class,
+        'callback' => [\local_confetti\hook\hook_callbacks::class, 'before_http_headers_callback'],
+        'priority' => 500,
     ]
 ];
