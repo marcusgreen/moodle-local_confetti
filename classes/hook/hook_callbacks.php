@@ -1,34 +1,37 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace local_confetti\hook;
 
-use core_user\hook\after_login_completed as after_login_completed_hook;
 use core\hook\output\before_http_headers as before_http_headers_hook;
 
+
+/**
+ * @package    local_confetti
+ * @copyright  2025 Odei Alba <odeialba@odeialba.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class hook_callbacks {
-    /**
-     * Called after login is completed.
-     *
-     * @param after_login_completed_hook $hook
-     */
-    public static function login_callback(after_login_completed_hook $hook): void {
-        global $SESSION, $PAGE;
-
-        error_log('ARO: AFTER LOGIN COMPLETED');
-        // Set a flag so we can load JS on the next rendered page.
-        $SESSION->local_confetti_afterlogin = true;
-
-        $PAGE->requires->js_call_amd('local_confetti/confetti', 'init');
-
-        error_log('ARO: AFTER JS CALL IN AFTER LOGIN COMPLETED');
-    }
-
     public static function before_http_headers_callback(before_http_headers_hook $hook): void {
         global $PAGE;
 
-        if (!empty($_SESSION['confetti_afterlogin'])) {
+        if (!empty($_SESSION['throw_confetti'])) {
             error_log('ARO: BEFORE HTTP HEADERS - SESSION FLAG FOUND');
 
-            unset($_SESSION['confetti_afterlogin']);
+            unset($_SESSION['throw_confetti']);
 
             $PAGE->requires->js_call_amd('local_confetti/confetti', 'init');
 

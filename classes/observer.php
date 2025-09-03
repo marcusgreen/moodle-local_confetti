@@ -43,7 +43,7 @@ class local_confetti_observer {
 
         error_log('ARO: USER LOGGED IN');
 
-        $_SESSION['confetti_afterlogin'] = true;
+        $_SESSION['throw_confetti'] = true;
 
         // $PAGE->requires->js_call_amd('local_confetti/confetti', 'init');
 
