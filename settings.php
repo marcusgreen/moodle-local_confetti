@@ -91,6 +91,37 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         'realistic', // Default value
         $confettipresets
     ));
+    
+    // Add Moodle events section header
+    $settings->add(new admin_setting_heading(
+        'local_confetti/moodleevents',
+        get_string('moodleevents', 'local_confetti'),
+        get_string('moodleevents_desc', 'local_confetti')
+    ));
+    
+    // Moodle events multiselect
+    $eventsoptions = [
+        'submission_created' => get_string('event_submission_created', 'local_confetti'),
+        'badge_awarded' => get_string('event_badge_awarded', 'local_confetti'),
+        'learning_plan_completed' => get_string('event_learning_plan_completed', 'local_confetti'),
+        'course_completed' => get_string('event_course_completed', 'local_confetti'),
+        'grade_letter_created' => get_string('event_grade_letter_created', 'local_confetti'),
+        'user_enrolled' => get_string('event_user_enrolled', 'local_confetti'),
+        'report_created' => get_string('event_report_created', 'local_confetti'),
+        'submission_submitted' => get_string('event_submission_submitted', 'local_confetti'),
+        'post_created' => get_string('event_post_created', 'local_confetti'),
+        'subscription_created' => get_string('event_subscription_created', 'local_confetti'),
+        'lesson_ended' => get_string('event_lesson_ended', 'local_confetti'),
+        'quiz_submitted' => get_string('event_quiz_submitted', 'local_confetti')
+    ];
+    
+    $settings->add(new admin_setting_configmultiselect(
+        'local_confetti/eventselect',
+        get_string('eventselect', 'local_confetti'),
+        get_string('eventselect_desc', 'local_confetti'),
+        ['course_completed'], // Default selection
+        $eventsoptions
+    ));
 
     // Add preview button
     $previewhtml = \core\output\html_writer::start_div('form-item row');
