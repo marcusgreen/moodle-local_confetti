@@ -37,12 +37,12 @@ class observer {
      * @param \core\event\user_loggedin $event The event object
      * @return bool True on success
      */
-    public static function confetti_callback(\core\event\user_loggedin $event) {
-        global $PAGE;
+    public static function confetti_callback() {
+        global $SESSION;
 
         error_log('ARO: USER LOGGED IN');
 
-        $_SESSION['throw_confetti'] = true;
+        $SESSION->throw_confetti = true;
 
         error_log('ARO: AFTER SESSION SET');
 

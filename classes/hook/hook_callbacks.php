@@ -16,22 +16,19 @@
 
 namespace local_confetti\hook;
 
-use core\hook\output\before_http_headers as before_http_headers_hook;
-
-
 /**
  * @package    local_confetti
  * @copyright  2025 Odei Alba <odeialba@odeialba.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class hook_callbacks {
-    public static function before_http_headers_callback(before_http_headers_hook $hook): void {
-        global $PAGE;
+    public static function before_http_headers_callback(): void {
+        global $PAGE, $SESSION;
 
-        if (!empty($_SESSION['throw_confetti'])) {
+        if (!empty($SESSION->throw_confetti)) {
             error_log('ARO: BEFORE HTTP HEADERS - SESSION FLAG FOUND');
 
-            unset($_SESSION['throw_confetti']);
+            unset($SESSION->throw_confetti);
 
             $PAGE->requires->js_call_amd('local_confetti/confetti', 'init');
 
