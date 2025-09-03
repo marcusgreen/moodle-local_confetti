@@ -56,6 +56,8 @@ $string['confettipresettext'] = 'Text';
 $string['confettipresetfireworks'] = 'Fireworks';
 $string['confettipresetsnow'] = 'Snow';
 $string['confettipresetschool'] = 'School Pride';
+$string['enablesound'] = 'Enable Sound';
+$string['enablesound_desc'] = 'When enabled, sound will be played during the confetti effect.';
 
 // Moodle events settings
 $string['moodleevents'] = 'Moodle Events';

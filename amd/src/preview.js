@@ -7,12 +7,9 @@
  */
 import {throwConfetti} from './confetti';
 
-/**
- * Initialize the preview button
- *
- * @method init
- */
-export const init = () => {
+export const init = (js_settings) => {
+    window.console.log(js_settings.enablesound);
+    let enableSound = js_settings.enablesound;
     const previewButton = document.getElementById('local_confetti_preview_button');
 
     if (previewButton) {
@@ -22,7 +19,7 @@ export const init = () => {
             const customText = document.getElementsByName('s_local_confetti_confettitext')[0].value;
 
             window.console.log('Selected preset:', selectedPreset);
-            throwConfetti({ preset: selectedPreset, text: customText });
+            throwConfetti({ preset: selectedPreset, text: customText, enablesound: enableSound });
         });
     }
 

@@ -31,8 +31,10 @@ class hook_callbacks {
 
             $settings = [
                 'preset' => get_config('local_confetti', 'confettipreset'),
-                'text' => get_config('local_confetti', 'confettitext')
+                'text' => get_config('local_confetti', 'confettitext'),
+                'enablesound' => get_config('local_confetti', 'enablesound')
             ];
+
             $PAGE->requires->js_call_amd('local_confetti/confetti', 'init', [$settings]);
 
             if($PAGE->pagetype == 'my-index'){
