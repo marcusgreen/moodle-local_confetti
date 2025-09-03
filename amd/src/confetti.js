@@ -27,7 +27,8 @@ export const init = (settings) => {
         throwConfetti(settings);
 };
 
-export const throwConfetti = (preset) => {
+export const throwConfetti = (settings) => {
+        var preset = settings.preset;
         switch (preset) {
                 case 'realistic':
                         realisticConfetti();
@@ -42,10 +43,10 @@ export const throwConfetti = (preset) => {
                         schoolConfetti();
                         break;
                 case 'emoji':
-                        customConfetti('🦄');
+                        customConfetti('🦄', 8);
                         break;
                 case 'text':
-                        customConfetti('You passed!!!');
+                        customConfetti(settings.text, 4);
                         break;
                 default:
                         confetti();
