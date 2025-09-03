@@ -71,6 +71,24 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         'realistic', // Default value
         $confettipresets
     ));
+        // Add preview button
+    $previewhtml = \core\output\html_writer::start_div('form-item row');
+    $previewhtml .= \core\output\html_writer::start_div('form-label col-sm-3');
+    $previewhtml .= \core\output\html_writer::tag('label', get_string('previewconfetti', 'local_confetti'));
+    $previewhtml .= \core\output\html_writer::end_div();
+    $previewhtml .= \core\output\html_writer::start_div('form-setting col-sm-9');
+    $previewhtml .= \core\output\html_writer::tag('p', get_string('previewconfetti_desc', 'local_confetti'));
+    $previewhtml .= \core\output\html_writer::tag('button', get_string('previewbutton', 'local_confetti'),
+        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary mb-4', 'type' => 'button']);
+    $previewhtml .= \core\output\html_writer::end_div();
+    $previewhtml .= \core\output\html_writer::end_div();
+
+    $settings->add(new admin_setting_heading(
+        'local_confetti/previewheading',
+        '',
+        $previewhtml
+    ));
+
 
     // Show a text input when the value of the preset is text
     $settings->add(new admin_setting_configtext(
@@ -81,6 +99,7 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
     ));
 
     $settings->hide_if('local_confetti/confettitext', 'local_confetti/confettipreset', 'neq', 'text');
+
 
     // Add Moodle events section header
     $settings->add(new admin_setting_heading(
@@ -118,34 +137,7 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $observerevents
     ));
 
-    /*$settings->add(new admin_setting_configemoji(
-        'local_confetti/confettiemoji',
-        get_string('confettiemoji', 'local_confetti'),
-        get_string('confettiemoji_desc', 'local_confetti'),
-        '' // Default value
-    ));
 
-    $settings->hide_if('local_confetti/confettiemoji', 'local_confetti/confettipreset', 'neq', 'emoji');*/
-
-    // Add preview button
-    $previewhtml = \core\output\html_writer::start_div('form-item row');
-    $previewhtml .= \core\output\html_writer::start_div('form-label col-sm-3');
-    $previewhtml .= \core\output\html_writer::tag('label', get_string('previewconfetti', 'local_confetti'));
-    $previewhtml .= \core\output\html_writer::end_div();
-    $previewhtml .= \core\output\html_writer::start_div('form-setting col-sm-9');
-    $previewhtml .= \core\output\html_writer::tag('p', get_string('previewconfetti_desc', 'local_confetti'));
-    $previewhtml .= \core\output\html_writer::tag('button', get_string('previewbutton', 'local_confetti'),
-        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary mb-4', 'type' => 'button']);
-    $previewhtml .= \core\output\html_writer::end_div();
-    $previewhtml .= \core\output\html_writer::end_div();
-
-    $settings->add(new admin_setting_heading(
-        'local_confetti/previewheading',
-        '',
-        $previewhtml
-    ));
-
-    // Load the preview JS
     global $PAGE;
     $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
 }
