@@ -44,7 +44,9 @@ class observer {
             return false;
         }
 
-        $SESSION->throw_confetti = true;
+        if( 'yes' == get_user_preferences('show_login_confetti', 'yes') || get_config('local_confetti', 'displayeverylogin')){
+            $SESSION->throw_confetti = true;
+        }
 
         return true;
     }

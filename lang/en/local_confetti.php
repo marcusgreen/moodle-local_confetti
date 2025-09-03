@@ -38,6 +38,10 @@ $string['enableoncoursecompletion_desc'] = 'When enabled, confetti will be shown
 $string['enableonlogin'] = 'Enable on successful login';
 $string['enableonlogin_desc'] = 'When enabled, confetti will be shown when a user successfully logs in to Moodle. (Implementation pending)';
 
+$string['displayeverylogin'] = 'Display on every login';
+$string['displayeverylogin_desc'] = 'When disabled, confetti will only be shown on the first login.';
+
+
 // Confetti appearance settings
 $string['confettiappearance'] = 'Confetti Appearance';
 $string['confettiappearance_desc'] = 'Configure how the confetti effect looks.';
