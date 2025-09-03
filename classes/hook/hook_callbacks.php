@@ -14,21 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_confetti\hook;
+
 /**
- * External functions and service declaration for confetti
- *
- * Documentation: {@link https://moodledev.io/docs/apis/subsystems/external/description}
- *
  * @package    local_confetti
- * @category   webservice
- * @copyright  2025 YOUR NAME <your@email.com>
+ * @copyright  2025 Odei Alba <odeialba@odeialba.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class hook_callbacks {
+    public static function before_http_headers_callback(): void {
+        global $PAGE, $SESSION;
 
-defined('MOODLE_INTERNAL') || die();
+        if (!empty($SESSION->throw_confetti)) {
 
-$functions = [
-];
+            unset($SESSION->throw_confetti);
 
-$services = [
-];
+            $settings = [
+                'preset' => get_config('local_confetti', 'confettipreset'),
+                'text' => get_config('local_confetti', 'confettitext')
+            ];
+            $PAGE->requires->js_call_amd('local_confetti/confetti', 'init', [$settings]);
+
+            if($PAGE->pagetype == 'my-index'){
+                set_user_preference('show_login_confetti', 'no');
+            }
+
+
+        }
+    }
+}

@@ -15,14 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library functions for confetti
+ * Hook callbacks for Confetti
  *
  * @package    local_confetti
- * @copyright  2025 Odei Alba <odeialba@odeialba.com>
+ * @copyright  2025 YOUR NAME <your@email.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-// This file is a placeholder for future implementation
-// The confetti display functionality will be implemented separately
+$callbacks = [
+    [
+        'hook' => core\hook\output\before_http_headers::class,
+        'callback' => [\local_confetti\hook\hook_callbacks::class, 'before_http_headers_callback'],
+        'priority' => 500,
+    ]
+];

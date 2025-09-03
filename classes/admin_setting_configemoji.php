@@ -14,10 +14,38 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
+namespace local_confetti;
+
+use admin_setting;
+
 /**
- * TODO describe file callbacks
+ * Class admin_setting_configemoji
  *
  * @package    local_confetti
- * @copyright  2025 YOUR NAME <your@email.com>
+ * @copyright  2025 Odei Alba <odeialba@odeialba.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class admin_setting_configemoji extends admin_setting {
+    public function get_defaultsetting() {
+        return '';
+    }
+
+    public function get_name() {
+        return $this->name;
+    }
+
+    public function get_setting() {
+        return true;
+    }
+
+    public function write_setting($data) {
+        return '';
+    }
+
+    public function output_html($data, $query = '') {
+        global $OUTPUT;
+
+        return $OUTPUT->render_from_template('local_confetti/configemoji', []);
+    }
+}

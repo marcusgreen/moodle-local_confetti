@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -24,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use local_confetti\admin_setting_configemoji;
+
 if ($hassiteconfig) { // Needs this condition or there is an error on login page.
     // Create the new settings page - make sure we use proper section names as per documentation
     $settings = new admin_settingpage('local_confetti', get_string('pluginname', 'local_confetti'));
@@ -44,19 +47,105 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         0 // Default value (0 = unchecked, 1 = checked).
     ));
 
-    // Add second checkbox setting - Enable on course completion.
+    // Add first checkbox setting - Enable on frontpage.
     $settings->add(new admin_setting_configcheckbox(
-        'local_confetti/enableoncoursecompletion',
-        get_string('enableoncoursecompletion', 'local_confetti'),
-        get_string('enableoncoursecompletion_desc', 'local_confetti'),
+        'local_confetti/displayeverylogin',
+        get_string('displayeverylogin', 'local_confetti'),
+        get_string('displayeverylogin_desc', 'local_confetti'),
         1 // Default value (0 = unchecked, 1 = checked).
     ));
 
-    // Add third checkbox setting - Enable on successful login.
-    $settings->add(new admin_setting_configcheckbox(
-        'local_confetti/enableonlogin',
-        get_string('enableonlogin', 'local_confetti'),
-        get_string('enableonlogin_desc', 'local_confetti'),
-        0 // Default value (0 = unchecked, 1 = checked).
+    // Confetti preset selection
+    $confettipresets = [
+        'realistic' => get_string('confettipresetrealistic', 'local_confetti'),
+        'fireworks' => get_string('confettipresetfireworks', 'local_confetti'),
+        'snow' => get_string('confettipresetsnow', 'local_confetti'),
+        'school' => get_string('confettipresetschool', 'local_confetti'),
+        'emoji' => get_string('confettipresetemoji', 'local_confetti'),
+        'text' => get_string('confettipresettext', 'local_confetti')
+    ];
+    $settings->add(new admin_setting_configselect(
+        'local_confetti/confettipreset',
+        get_string('confettipreset', 'local_confetti'),
+        get_string('confettipreset_desc', 'local_confetti'),
+        'realistic', // Default value
+        $confettipresets
     ));
+
+    // Show a text input when the value of the preset is text
+    $settings->add(new admin_setting_configtext(
+        'local_confetti/confettitext',
+        get_string('confettitext', 'local_confetti'),
+        get_string('confettitext_desc', 'local_confetti'),
+        '' // Default value
+    ));
+
+    $settings->hide_if('local_confetti/confettitext', 'local_confetti/confettipreset', 'neq', 'text');
+
+    /*$settings->add(new admin_setting_configemoji(
+        'local_confetti/confettiemoji',
+        get_string('confettiemoji', 'local_confetti'),
+        get_string('confettiemoji_desc', 'local_confetti'),
+        '' // Default value
+    ));
+
+    $settings->hide_if('local_confetti/confettiemoji', 'local_confetti/confettipreset', 'neq', 'emoji');*/
+
+    // Add preview button
+    $previewhtml = \core\output\html_writer::start_div('form-item row');
+    $previewhtml .= \core\output\html_writer::start_div('form-label col-sm-3 text-sm-end');
+    $previewhtml .= \core\output\html_writer::tag('label', get_string('previewconfetti', 'local_confetti'));
+    $previewhtml .= \core\output\html_writer::end_div();
+    $previewhtml .= \core\output\html_writer::start_div('form-setting col-sm-9');
+    $previewhtml .= \core\output\html_writer::tag('p', get_string('previewconfetti_desc', 'local_confetti'));
+    $previewhtml .= \core\output\html_writer::tag('button', get_string('previewbutton', 'local_confetti'),
+        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary mb-4', 'type' => 'button']);
+    $previewhtml .= \core\output\html_writer::end_div();
+    $previewhtml .= \core\output\html_writer::end_div();
+
+    $settings->add(new admin_setting_heading(
+        'local_confetti/previewheading',
+        '',
+        $previewhtml
+    ));
+
+    // Add Moodle events section header
+    $settings->add(new admin_setting_heading(
+        'local_confetti/moodleevents',
+        get_string('moodleevents', 'local_confetti'),
+        get_string('moodleevents_desc', 'local_confetti')
+    ));
+
+    $observeroptions = [];
+
+    include("db/events.php");
+
+    // Copy the $observers array and remove the first element
+    $observeroptions = $observers;
+    array_shift($observeroptions);
+
+    // Create a new array from $observeroptions in the same format as $eventsoptions
+    $observerevents = [];
+    foreach ($observeroptions as $observer) {
+        $eventname = $observer['eventname'];
+        // Extract the last part after the last backslash
+        $parts = explode('\\', $eventname);
+        $eventkey = end($parts);
+        // Convert to lowercase to match eventsoptions format
+        $eventkey = strtolower($eventkey);
+        // Add to the new array with the event key as the key
+        $observerevents[$eventkey] = get_string('event_' . $eventkey, 'local_confetti', $eventkey);
+    }
+
+    $settings->add(new admin_setting_configmultiselect(
+        'local_confetti/eventselect',
+        get_string('eventselect', 'local_confetti'),
+        get_string('eventselect_desc', 'local_confetti'),
+        [], // Default selection
+        $observerevents
+    ));
+
+
+    global $PAGE;
+    $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
 }
