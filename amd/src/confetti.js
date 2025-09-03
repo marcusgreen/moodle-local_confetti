@@ -23,8 +23,8 @@
 
 import confetti from './confetti/confetti';
 
-export const init = () => {
-        throwConfetti({ preset: 'realistic' });
+export const init = (settings) => {
+        throwConfetti(settings);
 };
 
 export const throwConfetti = (settings) => {
