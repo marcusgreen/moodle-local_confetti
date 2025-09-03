@@ -24,6 +24,28 @@
 import confetti from './confetti/confetti';
 
 export const init = () => {
+        throwConfetti('realistic');
+};
+
+export const throwConfetti = (preset) => {
+        if (preset === 'realistic') {
+                realisticConfetti();
+        } else if (preset === 'fireworks') {
+                fireworksConfetti();
+        } else if (preset === 'snow') {
+                snowConfetti();
+        } else if (preset === 'school') {
+                schoolConfetti();
+        } else if (preset === 'emoji') {
+                customConfetti('🦄');
+        } else if (preset === 'text') {
+                customConfetti('You passed!!!');
+        } else {
+                confetti();
+        }
+};
+
+export const realisticConfetti = () => {
         fire(0.25, {
                 spread: 26,
                 startVelocity: 55,
@@ -46,25 +68,28 @@ export const init = () => {
                 spread: 120,
                 startVelocity: 45,
         });
-        snow();
 };
 
-var count = 200;
-var defaults = {
-  origin: { y: 0.7 }
+export const fireworksConfetti = () => {
+        var duration = 15 * 1000;
+        var animationEnd = Date.now() + duration;
+        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        var interval = setInterval(function () {
+                var timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                }
+
+                var particleCount = 50 * (timeLeft / duration);
+                // since particles fall down, start a bit higher than random
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
 };
 
-export const fire = (particleRatio, opts) => {
-  confetti({
-    ...defaults,
-    ...opts,
-    particleCount: Math.floor(count * particleRatio)
-  });
-};
-export const randomInRange = (min, max) => {
-        return Math.random() * (max - min) + min;
-};
-export const snow = () => {
+export const snowConfetti = () => {
         var duration = 2 * 1000;
         var animationEnd = Date.now() + duration;
         var skew = 1;
@@ -84,13 +109,7 @@ export const snow = () => {
                                 y: (Math.random() * skew) - 0.2
                         },
                         colors: [
-                                '#26ccff',
-                                '#a25afd',
-                                '#ff5e7e',
-                                '#88ff5a',
-                                '#fcff42',
-                                '#ffa62d',
-                                '#ff36ff'
+                                '#26ccff'
                         ],
                         shapes: ['circle'],
                         gravity: randomInRange(0.4, 0.6),
@@ -102,4 +121,87 @@ export const snow = () => {
                         requestAnimationFrame(frame);
                 }
         }());
+};
+
+export const schoolConfetti = () => {
+        var end = Date.now() + (15 * 1000);
+
+        // go Buckeyes!
+        var colors = ['#bb0000', '#ffffff'];
+
+        (function frame() {
+                confetti({
+                        particleCount: 2,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: colors
+                });
+                confetti({
+                        particleCount: 2,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: colors
+                });
+
+                if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                }
+        }());
+};
+
+export const customConfetti = (content) => {
+        setTimeout(shoot(content), 0);
+        setTimeout(shoot(content), 100);
+        setTimeout(shoot(content), 200);
+};
+
+export const fire = (particleRatio, opts) => {
+        var count = 200;
+        var defaults = {
+                origin: { y: 0.7 }
+        };
+        confetti({
+                ...defaults,
+                ...opts,
+                particleCount: Math.floor(count * particleRatio)
+        });
+};
+
+export const randomInRange = (min, max) => {
+        return Math.random() * (max - min) + min;
+};
+
+export const shoot = (emoji) => {
+        var scalar = 2;
+        var unicorn = confetti.shapeFromText({ text: emoji, scalar });
+
+        var defaults = {
+                spread: 360,
+                ticks: 60,
+                gravity: 0,
+                decay: 0.96,
+                startVelocity: 20,
+                shapes: [unicorn],
+                scalar
+        };
+
+        confetti({
+                ...defaults,
+                particleCount: 30
+        });
+
+        confetti({
+                ...defaults,
+                particleCount: 5,
+                flat: true
+        });
+
+        confetti({
+                ...defaults,
+                particleCount: 15,
+                scalar: scalar / 2,
+                shapes: ['circle']
+        });
 };
