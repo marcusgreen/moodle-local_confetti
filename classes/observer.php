@@ -42,6 +42,13 @@ class observer {
 
         error_log('ARO: USER LOGGED IN');
 
+        if (get_config('local_confetti', 'enableonfrontpage') != 1) {
+            error_log('ARO: NOT ENABLED');
+            return false;
+        } else {
+            error_log('ARO: ENABLED');
+        }
+
         $SESSION->throw_confetti = true;
 
         error_log('ARO: AFTER SESSION SET');
