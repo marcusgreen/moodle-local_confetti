@@ -19,8 +19,10 @@ export const init = () => {
         previewButton.addEventListener('click', (e) => {
             e.preventDefault();
             const selectedPreset = document.getElementsByName('s_local_confetti_confettipreset')[0].value;
+            const customText = document.getElementsByName('s_local_confetti_confettitext')[0].value;
+
             window.console.log('Selected preset:', selectedPreset);
-            throwConfetti(selectedPreset);
+            throwConfetti({ preset: selectedPreset, text: customText });
         });
     }
 };
