@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,6 +24,8 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+
+use local_confetti\admin_setting_configemoji;
 
 if ($hassiteconfig) { // Needs this condition or there is an error on login page.
     // Create the new settings page - make sure we use proper section names as per documentation
@@ -104,6 +107,15 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         [], // Default selection
         $observerevents
     ));
+
+    /*$settings->add(new admin_setting_configemoji(
+        'local_confetti/confettiemoji',
+        get_string('confettiemoji', 'local_confetti'),
+        get_string('confettiemoji_desc', 'local_confetti'),
+        '' // Default value
+    ));
+
+    $settings->hide_if('local_confetti/confettiemoji', 'local_confetti/confettipreset', 'neq', 'emoji');*/
 
     // Add preview button
     $previewhtml = \core\output\html_writer::start_div('form-item row');
