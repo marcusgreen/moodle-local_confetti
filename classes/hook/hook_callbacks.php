@@ -30,7 +30,11 @@ class hook_callbacks {
 
             unset($SESSION->throw_confetti);
 
-            $PAGE->requires->js_call_amd('local_confetti/confetti', 'init', ['preset' => get_config('local_confetti', 'confettipreset'), 'text' => get_config('local_confetti', 'confettitext')]);
+            $settings = [
+                'preset' => get_config('local_confetti', 'confettipreset'),
+                'text' => get_config('local_confetti', 'confettitext')
+            ];
+            $PAGE->requires->js_call_amd('local_confetti/confetti', 'init', [$settings]);
 
             if($PAGE->pagetype == 'my-index'){
                 set_user_preference('show_login_confetti', 'no');
