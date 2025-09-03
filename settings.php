@@ -52,29 +52,6 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         1 // Default value (0 = unchecked, 1 = checked).
     ));
 
-    // Add second checkbox setting - Enable on course completion.
-    // $settings->add(new admin_setting_configcheckbox(
-    //     'local_confetti/enableoncoursecompletion',
-    //     get_string('enableoncoursecompletion', 'local_confetti'),
-    //     get_string('enableoncoursecompletion_desc', 'local_confetti'),
-    //     1 // Default value (0 = unchecked, 1 = checked).
-    // ));
-
-    // Add third checkbox setting - Enable on successful login.
-    // $settings->add(new admin_setting_configcheckbox(
-    //     'local_confetti/enableonlogin',
-    //     get_string('enableonlogin', 'local_confetti'),
-    //     get_string('enableonlogin_desc', 'local_confetti'),
-    //     0 // Default value (0 = unchecked, 1 = checked).
-    // ));
-
-    // Add confetti appearance section header
-    // $settings->add(new admin_setting_heading(
-    //     'local_confetti/confettiappearance',
-    //     get_string('confettiappearance', 'local_confetti'),
-    //     get_string('confettiappearance_desc', 'local_confetti')
-    // ));
-
     // Confetti preset selection
     $confettipresets = [
         'realistic' => get_string('confettipresetrealistic', 'local_confetti'),
@@ -99,22 +76,6 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         get_string('moodleevents_desc', 'local_confetti')
     ));
 
-    // Moodle events multiselect
-    $eventsoptions = [
-        'submission_created' => get_string('event_submission_created', 'local_confetti'),
-        'badge_awarded' => get_string('event_badge_awarded', 'local_confetti'),
-        'learning_plan_completed' => get_string('event_learning_plan_completed', 'local_confetti'),
-        'course_completed' => get_string('event_course_completed', 'local_confetti'),
-        'grade_letter_created' => get_string('event_grade_letter_created', 'local_confetti'),
-        'user_enrolled' => get_string('event_user_enrolled', 'local_confetti'),
-        'report_created' => get_string('event_report_created', 'local_confetti'),
-        'submission_submitted' => get_string('event_submission_submitted', 'local_confetti'),
-        'post_created' => get_string('event_post_created', 'local_confetti'),
-        'subscription_created' => get_string('event_subscription_created', 'local_confetti'),
-        'lesson_ended' => get_string('event_lesson_ended', 'local_confetti'),
-        'quiz_submitted' => get_string('event_quiz_submitted', 'local_confetti')
-    ];
-
     $observeroptions = [];
 
     include("db/events.php");
@@ -135,8 +96,6 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         // Add to the new array with the event key as the key
         $observerevents[$eventkey] = get_string('event_' . $eventkey, 'local_confetti', $eventkey);
     }
-
-    // die(print_r($observers, true));
 
     $settings->add(new admin_setting_configmultiselect(
         'local_confetti/eventselect',
@@ -164,42 +123,7 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $previewhtml
     ));
 
-    // $setting = new admin_setting_configcolourpicker('confetticolor', 'Confetti Color', 'Confetti Color Setting', '');
-    // $setting->set_updatedcallback('theme_reset_all_caches');
-    // $settings->add($setting);
-
     // Load the preview JS
     global $PAGE;
     $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
-
-    // Add placeholder settings for future functionality
-    // $settings->add(new admin_setting_heading(
-    //     'local_confetti/placeholdersheader',
-    //     get_string('placeholdersheader', 'local_confetti'),
-    //     get_string('placeholdersdescription', 'local_confetti')
-    // ));
-
-    // // Placeholder checkbox 1
-    // $settings->add(new admin_setting_configcheckbox(
-    //     'local_confetti/placeholder1',
-    //     get_string('placeholder1', 'local_confetti'),
-    //     get_string('placeholder1_desc', 'local_confetti'),
-    //     0 // Default value (0 = unchecked, 1 = checked)
-    // ));
-
-    // // Placeholder checkbox 2
-    // $settings->add(new admin_setting_configcheckbox(
-    //     'local_confetti/placeholder2',
-    //     get_string('placeholder2', 'local_confetti'),
-    //     get_string('placeholder2_desc', 'local_confetti'),
-    //     0 // Default value (0 = unchecked, 1 = checked)
-    // ));
-
-    // // Placeholder checkbox 3
-    // $settings->add(new admin_setting_configcheckbox(
-    //     'local_confetti/placeholder3',
-    //     get_string('placeholder3', 'local_confetti'),
-    //     get_string('placeholder3_desc', 'local_confetti'),
-    //     0 // Default value (0 = unchecked, 1 = checked)
-    // ));
 }
