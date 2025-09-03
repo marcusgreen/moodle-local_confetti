@@ -91,14 +91,14 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         'realistic', // Default value
         $confettipresets
     ));
-    
+
     // Add Moodle events section header
     $settings->add(new admin_setting_heading(
         'local_confetti/moodleevents',
         get_string('moodleevents', 'local_confetti'),
         get_string('moodleevents_desc', 'local_confetti')
     ));
-    
+
     // Moodle events multiselect
     $eventsoptions = [
         'submission_created' => get_string('event_submission_created', 'local_confetti'),
@@ -114,13 +114,36 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         'lesson_ended' => get_string('event_lesson_ended', 'local_confetti'),
         'quiz_submitted' => get_string('event_quiz_submitted', 'local_confetti')
     ];
-    
+
+    $observeroptions = [];
+
+    include("db/events.php");
+
+    // Copy the $observers array and remove the first element
+    $observeroptions = $observers;
+    array_shift($observeroptions);
+
+    // Create a new array from $observeroptions in the same format as $eventsoptions
+    $observerevents = [];
+    foreach ($observeroptions as $observer) {
+        $eventname = $observer['eventname'];
+        // Extract the last part after the last backslash
+        $parts = explode('\\', $eventname);
+        $eventkey = end($parts);
+        // Convert to lowercase to match eventsoptions format
+        $eventkey = strtolower($eventkey);
+        // Add to the new array with the event key as the key
+        $observerevents[$eventkey] = get_string('event_' . $eventkey, 'local_confetti', $eventkey);
+    }
+
+    // die(print_r($observers, true));
+
     $settings->add(new admin_setting_configmultiselect(
         'local_confetti/eventselect',
         get_string('eventselect', 'local_confetti'),
         get_string('eventselect_desc', 'local_confetti'),
-        ['course_completed'], // Default selection
-        $eventsoptions
+        [], // Default selection
+        $observerevents
     ));
 
     // Add preview button
@@ -146,6 +169,7 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
     // $settings->add($setting);
 
     // Load the preview JS
+    global $PAGE;
     $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
 
     // Add placeholder settings for future functionality

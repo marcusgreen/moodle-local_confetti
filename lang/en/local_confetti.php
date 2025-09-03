@@ -65,6 +65,7 @@ $string['event_badge_awarded'] = 'Badge awarded';
 $string['event_learning_plan_completed'] = 'Learning plan completed';
 $string['event_course_completed'] = 'Course completed';
 $string['event_grade_letter_created'] = 'Grade letter created';
+$string['event_user_enrolment_created'] = 'User enrolled in course';
 $string['event_user_enrolled'] = 'User enrolled in course';
 $string['event_report_created'] = 'Report created';
 $string['event_submission_submitted'] = 'A submission has been submitted';
