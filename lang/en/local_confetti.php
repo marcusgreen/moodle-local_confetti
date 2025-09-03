@@ -25,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['confettitext'] = 'Text';
+$string['confettitext_desc'] = 'Insert the text to be shown in the confetti particles';
 $string['pluginname'] = 'Confetti';
 $string['privacy:metadata'] = 'The Confetti plugin doesn\'t store any personal data.';
 

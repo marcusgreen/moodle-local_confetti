@@ -23,8 +23,8 @@
 
 import confetti from './confetti/confetti';
 
-export const init = () => {
-        throwConfetti('realistic');
+export const init = (settings) => {
+        throwConfetti(settings);
 };
 
 export const throwConfetti = (preset) => {
@@ -134,8 +134,10 @@ export const snowConfetti = () => {
 export const schoolConfetti = () => {
         var end = Date.now() + (15 * 1000);
 
-        // go Buckeyes!
-        var colors = ['#bb0000', '#ffffff'];
+        var root = document.querySelector('html');
+        var primaryColor = getComputedStyle(root).getPropertyValue('--primary');
+        var secondaryColor = getComputedStyle(root).getPropertyValue('--secondary');
+        var colors = [primaryColor, secondaryColor];
 
         (function frame() {
                 confetti({
@@ -159,10 +161,10 @@ export const schoolConfetti = () => {
         }());
 };
 
-export const customConfetti = (content) => {
-        setTimeout(shoot(content), 0);
-        setTimeout(shoot(content), 100);
-        setTimeout(shoot(content), 200);
+export const customConfetti = (content, size) => {
+        setTimeout(shoot(content, size), 0);
+        setTimeout(shoot(content, size), 100);
+        setTimeout(shoot(content, size), 200);
 };
 
 export const fire = (particleRatio, opts) => {
@@ -181,9 +183,8 @@ export const randomInRange = (min, max) => {
         return Math.random() * (max - min) + min;
 };
 
-export const shoot = (emoji) => {
-        var scalar = 2;
-        var unicorn = confetti.shapeFromText({ text: emoji, scalar });
+export const shoot = (content, size) => {
+        var contentShape = confetti.shapeFromText({ text: content, scalar: size });
 
         var defaults = {
                 spread: 360,
@@ -191,8 +192,8 @@ export const shoot = (emoji) => {
                 gravity: 0,
                 decay: 0.96,
                 startVelocity: 20,
-                shapes: [unicorn],
-                scalar
+                shapes: [contentShape],
+                scalar: size
         };
 
         confetti({
@@ -209,7 +210,7 @@ export const shoot = (emoji) => {
         confetti({
                 ...defaults,
                 particleCount: 15,
-                scalar: scalar / 2,
+                scalar: size / 2,
                 shapes: ['circle']
         });
 };
