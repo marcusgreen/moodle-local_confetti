@@ -69,17 +69,18 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
 
     // Confetti preset selection
     $confettipresets = [
-        'basic' => get_string('confettipresetbasic', 'local_confetti'),
         'realistic' => get_string('confettipresetrealistic', 'local_confetti'),
         'fireworks' => get_string('confettipresetfireworks', 'local_confetti'),
         'snow' => get_string('confettipresetsnow', 'local_confetti'),
-        'school' => get_string('confettipresetschool', 'local_confetti')
+        'school' => get_string('confettipresetschool', 'local_confetti'),
+        'emoji' => get_string('confettipresetemoji', 'local_confetti'),
+        'text' => get_string('confettipresettext', 'local_confetti')
     ];
     $settings->add(new admin_setting_configselect(
         'local_confetti/confettipreset',
         get_string('confettipreset', 'local_confetti'),
         get_string('confettipreset_desc', 'local_confetti'),
-        'basic', // Default value
+        'realistic', // Default value
         $confettipresets
     ));
 
