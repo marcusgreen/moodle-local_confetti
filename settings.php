@@ -69,6 +69,24 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $confettipresets
     ));
 
+        // Add preview button
+    $previewhtml = \core\output\html_writer::start_div('form-item row');
+    $previewhtml .= \core\output\html_writer::start_div('form-label col-sm-3');
+    $previewhtml .= \core\output\html_writer::tag('label', get_string('previewconfetti', 'local_confetti'));
+    $previewhtml .= \core\output\html_writer::end_div();
+    $previewhtml .= \core\output\html_writer::start_div('form-setting col-sm-9');
+    $previewhtml .= \core\output\html_writer::tag('p', get_string('previewconfetti_desc', 'local_confetti'));
+    $previewhtml .= \core\output\html_writer::tag('button', get_string('previewbutton', 'local_confetti'),
+        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary mb-4', 'type' => 'button']);
+    $previewhtml .= \core\output\html_writer::end_div();
+    $previewhtml .= \core\output\html_writer::end_div();
+
+    $settings->add(new admin_setting_heading(
+        'local_confetti/previewheading',
+        '',
+        $previewhtml
+    ));
+
     // Add Moodle events section header
     $settings->add(new admin_setting_heading(
         'local_confetti/moodleevents',
@@ -103,24 +121,6 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         get_string('eventselect_desc', 'local_confetti'),
         [], // Default selection
         $observerevents
-    ));
-
-    // Add preview button
-    $previewhtml = \core\output\html_writer::start_div('form-item row');
-    $previewhtml .= \core\output\html_writer::start_div('form-label col-sm-3');
-    $previewhtml .= \core\output\html_writer::tag('label', get_string('previewconfetti', 'local_confetti'));
-    $previewhtml .= \core\output\html_writer::end_div();
-    $previewhtml .= \core\output\html_writer::start_div('form-setting col-sm-9');
-    $previewhtml .= \core\output\html_writer::tag('p', get_string('previewconfetti_desc', 'local_confetti'));
-    $previewhtml .= \core\output\html_writer::tag('button', get_string('previewbutton', 'local_confetti'),
-        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary mb-4', 'type' => 'button']);
-    $previewhtml .= \core\output\html_writer::end_div();
-    $previewhtml .= \core\output\html_writer::end_div();
-
-    $settings->add(new admin_setting_heading(
-        'local_confetti/previewheading',
-        '',
-        $previewhtml
     ));
 
     // Load the preview JS
