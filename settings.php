@@ -55,6 +55,22 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         1 // Default value (0 = unchecked, 1 = checked).
     ));
 
+    // Add first checkbox setting - Enable on frontpage.
+    $settings->add(new admin_setting_configcheckbox(
+        'local_confetti/enablesound',
+        get_string('enablesound', 'local_confetti'),
+        get_string('enablesound_desc', 'local_confetti'),
+        0 // Default value (0 = unchecked, 1 = checked).
+    ));
+
+    // Add third checkbox setting - Enable on successful login.
+    $settings->add(new admin_setting_configcheckbox(
+        'local_confetti/enableonlogin',
+        get_string('enableonlogin', 'local_confetti'),
+        get_string('enableonlogin_desc', 'local_confetti'),
+        0 // Default value (0 = unchecked, 1 = checked).
+    ));
+
     // Confetti preset selection
     $confettipresets = [
         'realistic' => get_string('confettipresetrealistic', 'local_confetti'),
@@ -109,7 +125,12 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $previewhtml
     ));
 
-    // Add Moodle events section header
+
+    $js_settings = [
+        'enablesound' => get_config('local_confetti', 'enablesound')
+    ];
+
+    // Add placeholder settings for future functionality
     $settings->add(new admin_setting_heading(
         'local_confetti/moodleevents',
         get_string('moodleevents', 'local_confetti'),
@@ -147,5 +168,5 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
 
 
     global $PAGE;
-    $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
+    $PAGE->requires->js_call_amd('local_confetti/preview', 'init', [$js_settings]);
 }

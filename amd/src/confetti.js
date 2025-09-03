@@ -23,12 +23,30 @@
 
 import confetti from './confetti/confetti';
 
+let enablesound = false; // default
+
+
+const playSound = (path) => {
+        window.console.log('Sound enabled:', enablesound);
+        if (!enablesound){
+                return; // skip if sound disabled
+        }
+        const audio = new Audio(path);
+        audio.volume = 1;
+        audio.play().catch(() => {
+                // some browsers block autoplay, so ignore errors
+        });
+};
+
 export const init = (settings) => {
+        window.console.log(enablesound);
         throwConfetti(settings);
 };
 
 export const throwConfetti = (settings) => {
         var preset = settings.preset;
+        enablesound = Boolean(Number(settings.enablesound)); // forces "0" → false, "1" → true
+        window.console.log('Sound in function enabled:', enablesound);
         switch (preset) {
                 case 'realistic':
                         realisticConfetti();
@@ -51,10 +69,12 @@ export const throwConfetti = (settings) => {
                 default:
                         confetti();
                         break;
+
         }
 };
 
 export const realisticConfetti = () => {
+        playSound('/local/confetti/audio/success.mp3');
         fire(0.25, {
                 spread: 26,
                 startVelocity: 55,
@@ -80,6 +100,7 @@ export const realisticConfetti = () => {
 };
 
 export const fireworksConfetti = () => {
+        playSound('/local/confetti/audio/firework.mp3');
         var duration = 15 * 1000;
         var animationEnd = Date.now() + duration;
         var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -99,6 +120,7 @@ export const fireworksConfetti = () => {
 };
 
 export const snowConfetti = () => {
+        playSound('/local/confetti/audio/snow.mp3');
         var duration = 2 * 1000;
         var animationEnd = Date.now() + duration;
         var skew = 1;
@@ -133,6 +155,7 @@ export const snowConfetti = () => {
 };
 
 export const schoolConfetti = () => {
+        playSound('/local/confetti/audio/success.mp3');
         var end = Date.now() + (15 * 1000);
 
         var root = document.querySelector('html');
@@ -163,6 +186,11 @@ export const schoolConfetti = () => {
 };
 
 export const customConfetti = (content, size) => {
+        if(content=='🦄'){
+                playSound('/local/confetti/audio/rick_roll_fade.mp3');
+        } else{
+                playSound('/local/confetti/audio/success.mp3');
+        }
         setTimeout(shoot(content, size), 0);
         setTimeout(shoot(content, size), 100);
         setTimeout(shoot(content, size), 200);
