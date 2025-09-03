@@ -25,11 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $callbacks = [
-    //     [
-    //     'hook' => core_user\hook\after_login_completed::class,
-    //     'callback' => [\local_confetti\hook\hook_callbacks::class, 'login_callback'],
-    //     'priority' => 500,
-    // ],
     [
         'hook' => core\hook\output\before_http_headers::class,
         'callback' => [\local_confetti\hook\hook_callbacks::class, 'before_http_headers_callback'],

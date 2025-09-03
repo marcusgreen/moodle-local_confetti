@@ -27,11 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 $observers = [
     [
         'eventname' => core\event\user_loggedin::class,
-        'callback' => '\local_confetti\event\observer::user_loggedin',
+        'callback' => '\local_confetti\observer::confetti_callback',
         'internal' => false,
-    ],
-    [
-        'eventname'   => core\event\user_loggedin::class,
-        'callback'    => 'local_confetti_observer::confetti_callback',
     ]
 ];

@@ -22,16 +22,15 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
+namespace local_confetti;
 /**
  * Event observer class for Confetti plugin
  *
  * @package    local_confetti
- * @copyright  2025 YOUR NAME <your@email.com>
+ * @copyright  2025 Odei Alba <odeialba@odeialba.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class local_confetti_observer {
+class observer {
     /**
      * Callback function to trigger confetti when a user logs in
      *
@@ -44,8 +43,6 @@ class local_confetti_observer {
         error_log('ARO: USER LOGGED IN');
 
         $_SESSION['throw_confetti'] = true;
-
-        // $PAGE->requires->js_call_amd('local_confetti/confetti', 'init');
 
         error_log('ARO: AFTER SESSION SET');
 
