@@ -44,6 +44,14 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         0 // Default value (0 = unchecked, 1 = checked).
     ));
 
+    // Add first checkbox setting - Enable on frontpage.
+    $settings->add(new admin_setting_configcheckbox(
+        'local_confetti/displayeverylogin',
+        get_string('displayeverylogin', 'local_confetti'),
+        get_string('displayeverylogin_desc', 'local_confetti'),
+        1 // Default value (0 = unchecked, 1 = checked).
+    ));
+
     // Add second checkbox setting - Enable on course completion.
     $settings->add(new admin_setting_configcheckbox(
         'local_confetti/enableoncoursecompletion',
@@ -136,4 +144,3 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         0 // Default value (0 = unchecked, 1 = checked)
     ));
 }
-

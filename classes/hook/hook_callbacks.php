@@ -32,6 +32,11 @@ class hook_callbacks {
 
             $PAGE->requires->js_call_amd('local_confetti/confetti', 'init');
 
+            if($PAGE->pagetype == 'my-index'){
+                set_user_preference('show_login_confetti', 'no');
+            }
+
+
             error_log('ARO: AFTER JS CALL IN BEFORE HTTP HEADERS');
         } else {
             error_log('ARO: BEFORE HTTP HEADERS - NO SESSION FLAG - NOT LOADING JS');

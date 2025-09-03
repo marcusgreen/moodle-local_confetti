@@ -42,7 +42,9 @@ class observer {
 
         error_log('ARO: USER LOGGED IN');
 
-        $SESSION->throw_confetti = true;
+        if( 'yes' == get_user_preferences('show_login_confetti', 'yes') || get_config('local_confetti', 'displayeverylogin')){
+            $SESSION->throw_confetti = true;
+        }
 
         error_log('ARO: AFTER SESSION SET');
 
