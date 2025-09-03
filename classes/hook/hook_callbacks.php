@@ -26,7 +26,6 @@ class hook_callbacks {
         global $PAGE, $SESSION;
 
         if (!empty($SESSION->throw_confetti)) {
-            error_log('ARO: BEFORE HTTP HEADERS - SESSION FLAG FOUND');
 
             unset($SESSION->throw_confetti);
 
@@ -41,9 +40,6 @@ class hook_callbacks {
             }
 
 
-            error_log('ARO: AFTER JS CALL IN BEFORE HTTP HEADERS');
-        } else {
-            error_log('ARO: BEFORE HTTP HEADERS - NO SESSION FLAG - NOT LOADING JS');
         }
     }
 }

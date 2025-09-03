@@ -25,4 +25,5 @@ export const init = () => {
             throwConfetti({ preset: selectedPreset, text: customText });
         });
     }
+
 };

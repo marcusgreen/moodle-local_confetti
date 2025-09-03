@@ -37,17 +37,55 @@ class observer {
      * @param \core\event\user_loggedin $event The event object
      * @return bool True on success
      */
-    public static function confetti_callback() {
+    public static function confetti_callback($event) {
         global $SESSION;
 
-        error_log('ARO: USER LOGGED IN');
+        $configuredevents = get_config('local_confetti', 'eventselect');
 
-        if( 'yes' == get_user_preferences('show_login_confetti', 'yes') || get_config('local_confetti', 'displayeverylogin')){
-            $SESSION->throw_confetti = true;
+        // if (empty($configuredevents)) {
+
+        //     if (get_config('local_confetti', 'enableonfrontpage') != 1) {
+        //         return false;
+        //     }
+
+        //     // Check login display preferences
+        //     if ('yes' == get_user_preferences('show_login_confetti', 'yes') || get_config('local_confetti', 'displayeverylogin')) {
+        //         $SESSION->throw_confetti = true;
+        //         return true;
+        //     }
+        //     // return false;
+        // // }
+
+        // Get the event name and extract the last part after backslash
+        $eventname = $event->eventname;
+        if (empty($eventname)) {
+            $eventname = get_class($event);
         }
 
-        error_log('ARO: AFTER SESSION SET');
+        // Special handling for user_loggedin event - always show confetti
+        if (strpos($eventname, '\core\event\user_loggedin') !== false) {
+            if ('yes' == get_user_preferences('show_login_confetti', 'yes') || get_config('local_confetti', 'displayeverylogin')) {
+                $SESSION->throw_confetti = true;
+                return true;
+            }
 
+            // return false;
+        }
+
+        // Extract the last part after the last backslash
+        $parts = explode('\\', $eventname);
+        $eventkey = end($parts);
+        // Remove ::class if present
+        $eventkey = str_replace('::class', '', $eventkey);
+
+        // Convert the comma-separated list to an array
+        $configuredeventsarray = explode(',', $configuredevents);
+
+        // Check if the event key matches any in the configured events
+        if (in_array($eventkey, $configuredeventsarray)) {
+            $SESSION->throw_confetti = true;
+            return true;
+        }
 
         return true;
     }

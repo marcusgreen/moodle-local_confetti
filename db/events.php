@@ -29,5 +29,25 @@ $observers = [
         'eventname' => core\event\user_loggedin::class,
         'callback' => '\local_confetti\observer::confetti_callback',
         'internal' => false,
+    ],
+    [
+        'eventname' => assignsubmission_file\event\submission_created::class,
+        'callback' => '\local_confetti\observer::confetti_callback',
+        'internal' => false,
+    ],
+    [
+        'eventname' => core\event\user_enrolment_created::class,
+        'callback' => '\local_confetti\observer::confetti_callback',
+        'internal' => false,
+    ],
+    [
+        'eventname' => mod_forum\event\post_created::class,
+        'callback' => '\local_confetti\observer::confetti_callback',
+        'internal' => false,
+    ],
+    [
+        'eventname' => mod_forum\event\subscription_created::class,
+        'callback' => '\local_confetti\observer::confetti_callback',
+        'internal' => false,
     ]
 ];

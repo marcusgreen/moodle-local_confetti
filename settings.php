@@ -52,29 +52,6 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         1 // Default value (0 = unchecked, 1 = checked).
     ));
 
-    // Add second checkbox setting - Enable on course completion.
-    $settings->add(new admin_setting_configcheckbox(
-        'local_confetti/enableoncoursecompletion',
-        get_string('enableoncoursecompletion', 'local_confetti'),
-        get_string('enableoncoursecompletion_desc', 'local_confetti'),
-        1 // Default value (0 = unchecked, 1 = checked).
-    ));
-
-    // Add third checkbox setting - Enable on successful login.
-    $settings->add(new admin_setting_configcheckbox(
-        'local_confetti/enableonlogin',
-        get_string('enableonlogin', 'local_confetti'),
-        get_string('enableonlogin_desc', 'local_confetti'),
-        0 // Default value (0 = unchecked, 1 = checked).
-    ));
-
-    // Add confetti appearance section header
-    $settings->add(new admin_setting_heading(
-        'local_confetti/confettiappearance',
-        get_string('confettiappearance', 'local_confetti'),
-        get_string('confettiappearance_desc', 'local_confetti')
-    ));
-
     // Confetti preset selection
     $confettipresets = [
         'realistic' => get_string('confettipresetrealistic', 'local_confetti'),
@@ -92,15 +69,41 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $confettipresets
     ));
 
-    // Show a text input when the value of the preset is text
-    $settings->add(new admin_setting_configtext(
-        'local_confetti/confettitext',
-        get_string('confettitext', 'local_confetti'),
-        get_string('confettitext_desc', 'local_confetti'),
-        '' // Default value
+    // Add Moodle events section header
+    $settings->add(new admin_setting_heading(
+        'local_confetti/moodleevents',
+        get_string('moodleevents', 'local_confetti'),
+        get_string('moodleevents_desc', 'local_confetti')
     ));
 
-    $settings->hide_if('local_confetti/confettitext', 'local_confetti/confettipreset', 'neq', 'text');
+    $observeroptions = [];
+
+    include("db/events.php");
+
+    // Copy the $observers array and remove the first element
+    $observeroptions = $observers;
+    array_shift($observeroptions);
+
+    // Create a new array from $observeroptions in the same format as $eventsoptions
+    $observerevents = [];
+    foreach ($observeroptions as $observer) {
+        $eventname = $observer['eventname'];
+        // Extract the last part after the last backslash
+        $parts = explode('\\', $eventname);
+        $eventkey = end($parts);
+        // Convert to lowercase to match eventsoptions format
+        $eventkey = strtolower($eventkey);
+        // Add to the new array with the event key as the key
+        $observerevents[$eventkey] = get_string('event_' . $eventkey, 'local_confetti', $eventkey);
+    }
+
+    $settings->add(new admin_setting_configmultiselect(
+        'local_confetti/eventselect',
+        get_string('eventselect', 'local_confetti'),
+        get_string('eventselect_desc', 'local_confetti'),
+        [], // Default selection
+        $observerevents
+    ));
 
     // Add preview button
     $previewhtml = \core\output\html_writer::start_div('form-item row');
@@ -110,7 +113,7 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
     $previewhtml .= \core\output\html_writer::start_div('form-setting col-sm-9');
     $previewhtml .= \core\output\html_writer::tag('p', get_string('previewconfetti_desc', 'local_confetti'));
     $previewhtml .= \core\output\html_writer::tag('button', get_string('previewbutton', 'local_confetti'),
-        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary', 'type' => 'button']);
+        ['id' => 'local_confetti_preview_button', 'class' => 'btn btn-secondary mb-4', 'type' => 'button']);
     $previewhtml .= \core\output\html_writer::end_div();
     $previewhtml .= \core\output\html_writer::end_div();
 
@@ -121,36 +124,6 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
     ));
 
     // Load the preview JS
+    global $PAGE;
     $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
-
-    // Add placeholder settings for future functionality
-    $settings->add(new admin_setting_heading(
-        'local_confetti/placeholdersheader',
-        get_string('placeholdersheader', 'local_confetti'),
-        get_string('placeholdersdescription', 'local_confetti')
-    ));
-
-    // Placeholder checkbox 1
-    $settings->add(new admin_setting_configcheckbox(
-        'local_confetti/placeholder1',
-        get_string('placeholder1', 'local_confetti'),
-        get_string('placeholder1_desc', 'local_confetti'),
-        0 // Default value (0 = unchecked, 1 = checked)
-    ));
-
-    // Placeholder checkbox 2
-    $settings->add(new admin_setting_configcheckbox(
-        'local_confetti/placeholder2',
-        get_string('placeholder2', 'local_confetti'),
-        get_string('placeholder2_desc', 'local_confetti'),
-        0 // Default value (0 = unchecked, 1 = checked)
-    ));
-
-    // Placeholder checkbox 3
-    $settings->add(new admin_setting_configcheckbox(
-        'local_confetti/placeholder3',
-        get_string('placeholder3', 'local_confetti'),
-        get_string('placeholder3_desc', 'local_confetti'),
-        0 // Default value (0 = unchecked, 1 = checked)
-    ));
 }

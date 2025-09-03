@@ -57,6 +57,25 @@ $string['confettipresetfireworks'] = 'Fireworks';
 $string['confettipresetsnow'] = 'Snow';
 $string['confettipresetschool'] = 'School Pride';
 
+// Moodle events settings
+$string['moodleevents'] = 'Moodle Events';
+$string['moodleevents_desc'] = 'Select additional Moodle events that should trigger confetti.';
+$string['eventselect'] = 'Select additional events';
+$string['eventselect_desc'] = 'Choose additional events when confetti should be displayed.';
+$string['event_submission_created'] = 'Submission created';
+$string['event_badge_awarded'] = 'Badge awarded';
+$string['event_learning_plan_completed'] = 'Learning plan completed';
+$string['event_course_completed'] = 'Course completed';
+$string['event_grade_letter_created'] = 'Grade letter created';
+$string['event_user_enrolment_created'] = 'User enrolled in course';
+$string['event_user_enrolled'] = 'User enrolled in course';
+$string['event_report_created'] = 'Report created';
+$string['event_submission_submitted'] = 'A submission has been submitted';
+$string['event_post_created'] = 'Post created';
+$string['event_subscription_created'] = 'Subscription created';
+$string['event_lesson_ended'] = 'Lesson ended';
+$string['event_quiz_submitted'] = 'Quiz attempt submitted';
+
 // Placeholder settings
 $string['placeholdersheader'] = 'Additional options (coming soon)';
 $string['placeholdersdescription'] = 'These settings will be implemented in future versions.';
