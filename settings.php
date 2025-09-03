@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,6 +24,8 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+
+use local_confetti\admin_setting_configemoji;
 
 if ($hassiteconfig) { // Needs this condition or there is an error on login page.
     // Create the new settings page - make sure we use proper section names as per documentation
@@ -68,7 +71,6 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         'realistic', // Default value
         $confettipresets
     ));
-
         // Add preview button
     $previewhtml = \core\output\html_writer::start_div('form-item row');
     $previewhtml .= \core\output\html_writer::start_div('form-label col-sm-3');
@@ -86,6 +88,18 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         '',
         $previewhtml
     ));
+
+
+    // Show a text input when the value of the preset is text
+    $settings->add(new admin_setting_configtext(
+        'local_confetti/confettitext',
+        get_string('confettitext', 'local_confetti'),
+        get_string('confettitext_desc', 'local_confetti'),
+        '' // Default value
+    ));
+
+    $settings->hide_if('local_confetti/confettitext', 'local_confetti/confettipreset', 'neq', 'text');
+
 
     // Add Moodle events section header
     $settings->add(new admin_setting_heading(
@@ -123,7 +137,7 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $observerevents
     ));
 
-    // Load the preview JS
+
     global $PAGE;
     $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
 }
