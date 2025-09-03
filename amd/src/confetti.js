@@ -28,20 +28,28 @@ export const init = () => {
 };
 
 export const throwConfetti = (preset) => {
-        if (preset === 'realistic') {
-                realisticConfetti();
-        } else if (preset === 'fireworks') {
-                fireworksConfetti();
-        } else if (preset === 'snow') {
-                snowConfetti();
-        } else if (preset === 'school') {
-                schoolConfetti();
-        } else if (preset === 'emoji') {
-                customConfetti('🦄');
-        } else if (preset === 'text') {
-                customConfetti('You passed!!!');
-        } else {
-                confetti();
+        switch (preset) {
+                case 'realistic':
+                        realisticConfetti();
+                        break;
+                case 'fireworks':
+                        fireworksConfetti();
+                        break;
+                case 'snow':
+                        snowConfetti();
+                        break;
+                case 'school':
+                        schoolConfetti();
+                        break;
+                case 'emoji':
+                        customConfetti('🦄');
+                        break;
+                case 'text':
+                        customConfetti('You passed!!!');
+                        break;
+                default:
+                        confetti();
+                        break;
         }
 };
 

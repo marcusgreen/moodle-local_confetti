@@ -110,6 +110,10 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $previewhtml
     ));
 
+    // $setting = new admin_setting_configcolourpicker('confetticolor', 'Confetti Color', 'Confetti Color Setting', '');
+    // $setting->set_updatedcallback('theme_reset_all_caches');
+    // $settings->add($setting);
+
     // Load the preview JS
     $PAGE->requires->js_call_amd('local_confetti/preview', 'init');
 
