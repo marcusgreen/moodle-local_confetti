@@ -92,6 +92,16 @@ if ($hassiteconfig) { // Needs this condition or there is an error on login page
         $confettipresets
     ));
 
+    // Show a text input when the value of the preset is text
+    $settings->add(new admin_setting_configtext(
+        'local_confetti/confettitext',
+        get_string('confettitext', 'local_confetti'),
+        get_string('confettitext_desc', 'local_confetti'),
+        '' // Default value
+    ));
+
+    $settings->hide_if('local_confetti/confettitext', 'local_confetti/confettipreset', 'neq', 'text');
+
     // Add preview button
     $previewhtml = \core\output\html_writer::start_div('form-item row');
     $previewhtml .= \core\output\html_writer::start_div('form-label col-sm-3');
