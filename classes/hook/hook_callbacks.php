@@ -26,15 +26,10 @@ class hook_callbacks {
         global $PAGE, $SESSION;
 
         if (!empty($SESSION->throw_confetti)) {
-            error_log('ARO: BEFORE HTTP HEADERS - SESSION FLAG FOUND');
 
             unset($SESSION->throw_confetti);
 
             $PAGE->requires->js_call_amd('local_confetti/confetti', 'init');
-
-            error_log('ARO: AFTER JS CALL IN BEFORE HTTP HEADERS');
-        } else {
-            error_log('ARO: BEFORE HTTP HEADERS - NO SESSION FLAG - NOT LOADING JS');
         }
     }
 }
