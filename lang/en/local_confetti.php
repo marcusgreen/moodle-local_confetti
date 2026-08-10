@@ -75,6 +75,8 @@ $string['event_post_created'] = 'Post created';
 $string['event_subscription_created'] = 'Subscription created';
 $string['event_lesson_ended'] = 'Lesson ended';
 $string['event_quiz_submitted'] = 'Quiz attempt submitted';
+$string['event_report_viewed'] = 'Report viewed';
+$string['event_user_loggedin'] = 'User logged in';
 
 // Placeholder settings
 $string['placeholdersheader'] = 'Additional options (coming soon)';
