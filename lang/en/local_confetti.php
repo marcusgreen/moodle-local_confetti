@@ -24,7 +24,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-
+$string['event_report_deleted'] = 'Deleteme';
 $string['confettitext'] = 'Text';
 $string['confettitext_desc'] = 'Insert the text to be shown in the confetti particles';
 $string['pluginname'] = 'Confetti';
